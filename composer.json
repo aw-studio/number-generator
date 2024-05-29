@@ -1,0 +1,44 @@
+{
+  "name": "aw-studio/number-generator",
+  "description": "An ID Generator for PHP based on Snowflake Algorithm (Twitter announced).",
+  "license": "MIT",
+  "keywords": [
+    "number generator with sequence"
+  ],
+  "homepage": "https://github.com/aw-studio/number-generator",
+  "authors": [
+    {
+      "name": "Lukas Heller",
+      "email": "dev@lukas-heller.de"
+    }
+  ],
+  "require": {
+    "php": "^8.0"
+  },
+  "require-dev": {
+    "laravel/pint": "^1.10",
+    "pestphp/pest": "^2.34",
+    "spatie/ray": "^1.41",
+    "carbondate/carbon": "^1.33"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "AwStudio\\NumberGenerator\\": "src"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "phpstan": "vendor/bin/phpstan",
+    "pint": "vendor/bin/pint --config pint.json"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
