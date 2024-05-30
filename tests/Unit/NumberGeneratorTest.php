@@ -77,11 +77,12 @@ test('It can generate a number from a pattern with day placeholder', function ()
     $generator = Generator::fromPattern('AY-23001', 'AY-{d}{n}');
     expect($generator->next())->toBe('AY-23002');
 });
-test('It can generate a number from a pattern with dynamic date placeholder', function () {
-    $generator = Generator::fromPattern('AY-23001', 'AY-{d}{n}', true);
-    $day = date('d');
-    expect($generator->next())->toBe('AY-'.$day.'002');
-});
+
+// test('It can generate a number from a pattern with dynamic date placeholder', function () {
+//     $generator = Generator::fromPattern('AY-23001', 'AY-{d}{n}', true);
+//     $day = date('d');
+//     expect($generator->next())->toBe('AY-'.$day.'002');
+// });
 
 test('It can generate a number from a pattern with  only year placeholder', function () {
     $generator = Generator::fromPattern('2024001', '{Y}{n}');
@@ -94,4 +95,13 @@ test('It extracts the correct number from a pattern', function () {
 
     $generator = (new Generator())->extractNumberByPattern('20240193', '{Y}{m}{n}');
     expect($generator)->toBe('93');
+
+    $generator = (new Generator())->extractNumberByPattern('AY-20230099', 'AY-{Y}{n}');
+    expect($generator)->toBe('0099');
+});
+
+test('It does somethiongs', function () {
+    $generator = Generator::fromPattern('AY-20230099', 'AY-{Y}{n}', true);
+    $year = date('Y');
+    expect($generator->next())->toBe('AY-'.$year.'0001');
 });

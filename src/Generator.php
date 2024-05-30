@@ -47,6 +47,15 @@ class Generator
             $prefix = str_replace($startNumber, '', $number);
         }
 
+        if ($dynamicDates) {
+            $newPrefix = self::replacePlaceholders($prefix);
+
+            $oldPrefix = (new self())->getOldPrefix($number, $pattern);
+            if ($newPrefix != $oldPrefix) {
+                $startNumber = str_pad(0, strlen($startNumber), '0', STR_PAD_LEFT);
+            }
+        }
+
         return new Generator(
             start: $startNumber,
             prefix: $prefix,
@@ -62,6 +71,7 @@ class Generator
 
         // Replace {Y} and {m} with regex to match digits
         // replace the {n} with a wildcard
+        $regexPattern = str_replace('\{rn\}', '(\d+)', $regexPattern);
         $regexPattern = str_replace('\{n\}', '(\d+)', $regexPattern);
         $regexPattern = str_replace('\{Y\}', '(\d{4})', $regexPattern);
         $regexPattern = str_replace('\{m\}', '(\d{2})', $regexPattern);
@@ -72,10 +82,21 @@ class Generator
 
         // Use preg_match to extract parts
         if (preg_match($regexPattern, $subject, $matches)) {
+            ray($matches)->red();
+
             return end($matches);
         } else {
             return null; // No match found
         }
+    }
+
+    protected function getOldPrefix($number, $pattern)
+    {
+        $startNumber = $this->extractNumberByPattern($number, $pattern);
+
+        $prefix = str_replace($startNumber, '', $number);
+
+        return $prefix;
     }
 
     protected static function replacePlaceholders($pattern)

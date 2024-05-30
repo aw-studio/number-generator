@@ -1,6 +1,6 @@
 {
   "name": "aw-studio/number-generator",
-  "description": "An ID Generator for PHP based on Snowflake Algorithm (Twitter announced).",
+  "description": "A stuctured Number Generator for PHP.",
   "license": "MIT",
   "keywords": [
     "number generator with sequence"
